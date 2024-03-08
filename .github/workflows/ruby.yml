@@ -1,0 +1,27 @@
+name: Ruby on Rails CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '3.2.2'  # またはプロジェクトに合ったバージョンを指定
+
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Run tests
+      run: |
+        bin/rails db:create RAILS_ENV=test
+        bin/rails db:migrate RAILS_ENV=test
+        bin/rails test:integration
