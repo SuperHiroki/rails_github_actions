@@ -19,6 +19,9 @@ jobs:
       run: |
         bundle install
 
+    - name: Set execute permission for Rails
+      run: chmod +x bin/rails
+
     - name: Run tests
       run: |
         bin/rails db:create RAILS_ENV=test
